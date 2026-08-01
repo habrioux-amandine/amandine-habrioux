@@ -34,6 +34,10 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const { data, error } = await supabaseAuth.auth.signInWithPassword({ email, password });
 
+if (error) {
+  console.error('[admin login] échec pour', email, '-', error.message);
+}
+
   if (error || !data.session) {
     return res.render('admin/login', {
       error: 'Identifiants incorrects.',
