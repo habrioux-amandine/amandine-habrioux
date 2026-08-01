@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Connexion admin</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <main>
+    <div class="admin-login-shell">
+      <h1 style="margin-bottom:32px;">Connexion</h1>
+      <form method="POST" action="/admin/login">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <% if (error) { %>
+          <p class="error-text"><%= error %></p>
+        <% } %>
+        <button type="submit" class="btn">Se connecter</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Administration</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <main>
+    <div class="admin-shell">
+      <div class="admin-header">
+        <h1>Projets</h1>
+        <div style="display:flex; gap:12px;">
+          <a href="/admin/profil" class="btn btn-quiet">Profil</a>
+          <a href="/admin/contact" class="btn btn-quiet">Contact</a>
+          <a href="/" class="btn btn-quiet" target="_blank">Voir le site</a>
+          <a href="/admin/projets/nouveau" class="btn">+ Nouveau projet</a>
+          <form method="POST" action="/admin/logout" style="display:inline;">
+            <button type="submit" class="btn btn-quiet">Déconnexion</button>
+          </form>
+        </div>
+      </div>
+
+      <% if (projects && projects.length > 0) { %>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Titre</th>
+              <th>Ordre</th>
+              <th>Statut</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% projects.forEach((p) => { %>
+              <tr>
+                <td>
+                  <% if (p.image_url) { %>
+                    <img class="admin-thumb" src="<%= p.image_url %>" alt="" />
+                  <% } %>
+                </td>
+                <td><%= p.titre %></td>
+                <td><%= p.ordre_affichage %></td>
+                <td><%= p.published ? 'Publié' : 'Brouillon' %></td>
+                <td><a href="/admin/projets/<%= p.id %>" class="btn btn-quiet">Modifier</a></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>Aucun projet pour l'instant. Crée le premier avec le bouton ci-dessus.</p>
+      <% } %>
+    </div>
+  </main>
+</body>
+</html>

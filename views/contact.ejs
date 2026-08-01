@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Contact — Amandine Habrioux</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+  <main>
+    <div class="contact-page">
+      <h1>Contact</h1>
+      <ul class="contact-list">
+        <% if (contact.email) { %>
+          <li><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:<%= contact.email %>"><%= contact.email %></a></span></li>
+        <% } %>
+        <% if (contact.telephone) { %>
+          <li><span class="contact-label">Téléphone</span><span class="contact-value"><%= contact.telephone %></span></li>
+        <% } %>
+        <% if (contact.adresse) { %>
+          <li><span class="contact-label">Adresse</span><span class="contact-value"><%= contact.adresse %></span></li>
+        <% } %>
+        <% if (contact.instagram) { %>
+          <li><span class="contact-label">Instagram</span><span class="contact-value"><%= contact.instagram %></span></li>
+        <% } %>
+        <% if (contact.linkedin) { %>
+          <li><span class="contact-label">LinkedIn</span><span class="contact-value"><%= contact.linkedin %></span></li>
+        <% } %>
+        <% if (contact.autre) { %>
+          <li><span class="contact-label">Autre</span><span class="contact-value"><%= contact.autre %></span></li>
+        <% } %>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>

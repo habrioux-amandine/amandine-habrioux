@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Éditer le contact</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <main>
+    <div class="admin-shell">
+      <div class="admin-header">
+        <h1>Contact</h1>
+        <a href="/admin" class="btn btn-quiet">← Retour</a>
+      </div>
+
+      <form method="POST" action="/admin/contact">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" value="<%= contact.email || '' %>" />
+        </div>
+        <div class="form-group">
+          <label for="telephone">Téléphone</label>
+          <input type="text" id="telephone" name="telephone" value="<%= contact.telephone || '' %>" />
+        </div>
+        <div class="form-group">
+          <label for="adresse">Adresse</label>
+          <input type="text" id="adresse" name="adresse" value="<%= contact.adresse || '' %>" />
+        </div>
+        <div class="form-group">
+          <label for="instagram">Instagram</label>
+          <input type="text" id="instagram" name="instagram" value="<%= contact.instagram || '' %>" />
+        </div>
+        <div class="form-group">
+          <label for="linkedin">LinkedIn</label>
+          <input type="text" id="linkedin" name="linkedin" value="<%= contact.linkedin || '' %>" />
+        </div>
+        <div class="form-group">
+          <label for="autre">Autre</label>
+          <input type="text" id="autre" name="autre" value="<%= contact.autre || '' %>" />
+        </div>
+
+        <button type="submit" class="btn">Enregistrer</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
