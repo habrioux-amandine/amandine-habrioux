@@ -394,13 +394,13 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
 }
 
 .profile-photo {
+  display: block;
   width: 260px;
   height: 320px;
   object-fit: cover;
-  margin-bottom: 40px;
+  margin: 0 auto 40px;
   filter: grayscale(20%);
 }
-
 .profile-text {
   max-width: 62ch;
   font-size: 1.05rem;
