@@ -39,6 +39,31 @@ create table if not exists profile (
 
 insert into profile (id, texte) values (1, '') on conflict (id) do nothing;
 
+-- Table des expériences professionnelles
+create table if not exists experiences (
+  id uuid primary key default gen_random_uuid(),
+  periode text,
+  poste text not null,
+  structure text,
+  description text,
+  ordre integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+drop trigger if exists trg_experiences_updated on experiences;
+create trigger trg_experiences_updated before update on experiences
+  for each row execute function set_updated_at();
+
+alter table experiences enable row level security;
+
+create policy "Lecture publique expériences" on experiences
+  for select using (true);
+
+create policy "Ecriture admin expériences" on experiences
+  for all using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
 -- ---------- CONTACT (une seule ligne) ----------
 create table if not exists contact (
   id integer primary key default 1,

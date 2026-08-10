@@ -407,6 +407,37 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
   white-space: pre-line;
 }
 
+.experience-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 48px 0 0;
+}
+
+.experience-timeline li {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--color-line);
+  display: flex;
+  gap: 24px;
+}
+
+.experience-period {
+  flex: 0 0 140px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-soft);
+}
+
+.experience-poste { font-size: 1.05rem; font-weight: 500; margin: 0 0 4px; }
+.experience-structure { font-size: 0.9rem; color: var(--color-text-soft); margin: 0 0 6px; }
+.experience-description { font-size: 0.95rem; white-space: pre-line; margin: 0; }
+
+@media (max-width: 480px) {
+  .experience-timeline li { flex-direction: column; gap: 6px; }
+  .experience-period { flex: none; }
+}
+
 /* ============================================================
    CONTACT
    ============================================================ */
@@ -584,6 +615,52 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
   border: 1px solid var(--color-line);
   font-size: 0.65rem;
   padding: 4px 8px;
+  cursor: pointer;
+  font-family: var(--font-display);
+}
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.experience-item {
+  position: relative;
+  border: 1px solid var(--color-line);
+  padding: 20px 20px 8px;
+}
+
+.experience-move {
+  position: absolute;
+  top: 16px;
+  right: 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.experience-move-btn {
+  width: 28px;
+  height: 24px;
+  border: 1px solid var(--color-line);
+  background: var(--color-bg);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+}
+
+.experience-move-btn:hover:not(:disabled) { background: var(--color-hover-bg); }
+.experience-move-btn:disabled { opacity: 0.3; cursor: default; }
+
+.experience-delete { position: absolute; top: 16px; right: 16px; }
+
+.experience-delete button {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--color-line);
+  font-size: 0.7rem;
+  padding: 5px 9px;
   cursor: pointer;
   font-family: var(--font-display);
 }

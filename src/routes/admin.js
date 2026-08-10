@@ -218,16 +218,18 @@ router.get('/profil', async (req, res, next) => {
   try {
     const { data: profile, error } = await supabaseAdmin.from('profile').select('*').eq('id', 1).single();
     if (error) throw error;
+
+    const experiences = await getOrderedExperiences();
+
     res.render('admin/profile-edit', {
       profile: { ...profile, photo_url: publicUrl(profile.photo) },
+      experiences,
       page: 'admin-profile',
     });
   } catch (err) {
     next(err);
   }
-});
-
-router.post('/profil', upload.single('photo'), async (req, res, next) => {
+});router.post('/profil', upload.single('photo'), async (req, res, next) => {
   try {
     const { texte } = req.body;
     const updates = { texte };
@@ -240,6 +242,89 @@ router.post('/profil', upload.single('photo'), async (req, res, next) => {
     const { error } = await supabaseAdmin.from('profile').update(updates).eq('id', 1);
     if (error) throw error;
 
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ---------- EXPERIENCES (profil) ----------
+async function getOrderedExperiences() {
+  const { data, error } = await supabaseAdmin
+    .from('experiences')
+    .select('*')
+    .order('ordre', { ascending: true });
+  if (error) throw error;
+  return data || [];
+}
+
+router.post('/profil/experiences', async (req, res, next) => {
+  try {
+    const { periode, poste, structure, description } = req.body;
+    const experiences = await getOrderedExperiences();
+    const nextOrdre = experiences.length ? experiences[experiences.length - 1].ordre + 1 : 0;
+
+    const { error } = await supabaseAdmin.from('experiences').insert({
+      periode, poste, structure, description, ordre: nextOrdre,
+    });
+    if (error) throw error;
+
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/experiences/:id', async (req, res, next) => {
+  try {
+    const { periode, poste, structure, description } = req.body;
+    const { error } = await supabaseAdmin
+      .from('experiences')
+      .update({ periode, poste, structure, description })
+      .eq('id', req.params.id);
+    if (error) throw error;
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/experiences/:id/supprimer', async (req, res, next) => {
+  try {
+    const { error } = await supabaseAdmin.from('experiences').delete().eq('id', req.params.id);
+    if (error) throw error;
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/experiences/:id/monter', async (req, res, next) => {
+  try {
+    const experiences = await getOrderedExperiences();
+    const index = experiences.findIndex((e) => e.id === req.params.id);
+    if (index > 0) {
+      const current = experiences[index];
+      const previous = experiences[index - 1];
+      await supabaseAdmin.from('experiences').update({ ordre: previous.ordre }).eq('id', current.id);
+      await supabaseAdmin.from('experiences').update({ ordre: current.ordre }).eq('id', previous.id);
+    }
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/experiences/:id/descendre', async (req, res, next) => {
+  try {
+    const experiences = await getOrderedExperiences();
+    const index = experiences.findIndex((e) => e.id === req.params.id);
+    if (index !== -1 && index < experiences.length - 1) {
+      const current = experiences[index];
+      const suivante = experiences[index + 1];
+      await supabaseAdmin.from('experiences').update({ ordre: suivante.ordre }).eq('id', current.id);
+      await supabaseAdmin.from('experiences').update({ ordre: current.ordre }).eq('id', suivante.id);
+    }
     res.redirect('/admin/profil');
   } catch (err) {
     next(err);

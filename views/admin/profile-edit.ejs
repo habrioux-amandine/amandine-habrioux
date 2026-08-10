@@ -29,6 +29,77 @@
         <button type="submit" class="btn">Enregistrer</button>
       </form>
     </div>
+<hr style="margin:48px 0; border:none; border-top:1px solid var(--color-line);" />
+
+<h2 style="margin-bottom:8px;">Expériences professionnelles</h2>
+<p style="color:var(--color-text-soft); font-size:0.9rem; margin-bottom:8px;">
+  Classées par ordre chronologique. Utilisez les flèches pour réordonner.
+</p>
+
+<div class="experience-list">
+  <% experiences.forEach((exp, index) => { %>
+    <div class="experience-item">
+      <div class="experience-move">
+        <form method="POST" action="/admin/profil/experiences/<%= exp.id %>/monter">
+          <button type="submit" class="experience-move-btn" <%= index === 0 ? 'disabled' : '' %>>↑</button>
+        </form>
+        <form method="POST" action="/admin/profil/experiences/<%= exp.id %>/descendre">
+          <button type="submit" class="experience-move-btn" <%= index === experiences.length - 1 ? 'disabled' : '' %>>↓</button>
+        </form>
+      </div>
+
+      <form method="POST" action="/admin/profil/experiences/<%= exp.id %>/supprimer"
+        onsubmit="return confirm('Supprimer cette expérience ?');" class="experience-delete">
+        <button type="submit">✕</button>
+      </form>
+
+      <form method="POST" action="/admin/profil/experiences/<%= exp.id %>">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="periode-<%= exp.id %>">Période</label>
+            <input type="text" id="periode-<%= exp.id %>" name="periode" value="<%= exp.periode || '' %>" placeholder="2019 — 2022" />
+          </div>
+          <div class="form-group">
+            <label for="poste-<%= exp.id %>">Poste</label>
+            <input type="text" id="poste-<%= exp.id %>" name="poste" required value="<%= exp.poste || '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="structure-<%= exp.id %>">Structure</label>
+            <input type="text" id="structure-<%= exp.id %>" name="structure" value="<%= exp.structure || '' %>" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description-<%= exp.id %>">Description</label>
+          <textarea id="description-<%= exp.id %>" name="description" style="min-height:80px;"><%= exp.description || '' %></textarea>
+        </div>
+        <button type="submit" class="btn btn-quiet">Enregistrer</button>
+      </form>
+    </div>
+  <% }) %>
+</div>
+
+<h3 style="margin:32px 0 8px;">Ajouter une expérience</h3>
+<form method="POST" action="/admin/profil/experiences">
+  <div class="form-row">
+    <div class="form-group">
+      <label for="new-periode">Période</label>
+      <input type="text" id="new-periode" name="periode" placeholder="2019 — 2022" />
+    </div>
+    <div class="form-group">
+      <label for="new-poste">Poste</label>
+      <input type="text" id="new-poste" name="poste" required />
+    </div>
+    <div class="form-group">
+      <label for="new-structure">Structure</label>
+      <input type="text" id="new-structure" name="structure" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="new-description">Description</label>
+    <textarea id="new-description" name="description" style="min-height:80px;"></textarea>
+  </div>
+  <button type="submit" class="btn">Ajouter</button>
+</form>
   </main>
 </body>
 </html>

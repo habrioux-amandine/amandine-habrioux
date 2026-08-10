@@ -74,15 +74,22 @@ router.get('/profil', async (req, res, next) => {
 
     if (error) throw error;
 
+    const { data: experiences, error: expError } = await supabasePublic
+      .from('experiences')
+      .select('*')
+      .order('ordre', { ascending: true });
+
+    if (expError) throw expError;
+
     res.render('profile', {
       profile: { ...profile, photo_url: publicUrl(profile.photo) },
+      experiences: experiences || [],
       page: 'profile',
     });
   } catch (err) {
     next(err);
   }
 });
-
 // ---------- CONTACT ----------
 router.get('/contact', async (req, res, next) => {
   try {
