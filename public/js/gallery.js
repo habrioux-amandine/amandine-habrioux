@@ -1,11 +1,12 @@
 (function () {
+  const galleryWrap = document.getElementById('galleryWrap');
   const gallery = document.getElementById('gallery');
-  if (!gallery) return;
+  if (!galleryWrap || !gallery) return;
 
   const figures = gallery.querySelectorAll('figure');
-  const dots = gallery.querySelectorAll('.gallery-dot');
-  const prevBtn = gallery.querySelector('.gallery-arrow.prev');
-  const nextBtn = gallery.querySelector('.gallery-arrow.next');
+  const dots = galleryWrap.querySelectorAll('.gallery-dot');
+  const prevBtn = galleryWrap.querySelector('.gallery-arrow.prev');
+  const nextBtn = galleryWrap.querySelector('.gallery-arrow.next');
   let current = 0;
 
   function goTo(index) {

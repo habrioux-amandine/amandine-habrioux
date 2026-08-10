@@ -19,14 +19,16 @@
         <% } %>
       </div>
 
-      <div class="project-gallery" id="gallery">
-        <% if (gallery && gallery.length > 0) { %>
-          <% gallery.forEach((img) => { %>
-            <figure>
-              <img src="<%= img.url %>" alt="<%= project.titre %>" loading="lazy" />
-            </figure>
-          <% }) %>
-        <% } %>
+      <div class="project-gallery-wrap" id="galleryWrap">
+        <div class="project-gallery" id="gallery">
+          <% if (gallery && gallery.length > 0) { %>
+            <% gallery.forEach((img) => { %>
+              <figure>
+                <img src="<%= img.url %>" alt="<%= project.titre %>" loading="lazy" />
+              </figure>
+            <% }) %>
+          <% } %>
+        </div>
 
         <% if (gallery && gallery.length > 1) { %>
           <button class="gallery-arrow prev" aria-label="Image précédente">←</button>
