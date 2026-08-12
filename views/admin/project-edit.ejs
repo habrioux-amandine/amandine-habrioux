@@ -30,6 +30,38 @@
           <textarea id="description" name="description"><%= project && project.description ? project.description : '' %></textarea>
         </div>
 
+        <details class="lang-section">
+          <summary>🇬🇧 English</summary>
+          <div class="form-group">
+            <label for="titre_en">Title</label>
+            <input type="text" id="titre_en" name="titre_en" value="<%= project && project.titre_en ? project.titre_en : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="sous_titre_en">Subtitle</label>
+            <input type="text" id="sous_titre_en" name="sous_titre_en" value="<%= project && project.sous_titre_en ? project.sous_titre_en : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="description_en">Description</label>
+            <textarea id="description_en" name="description_en"><%= project && project.description_en ? project.description_en : '' %></textarea>
+          </div>
+        </details>
+
+        <details class="lang-section">
+          <summary>🇮🇹 Italiano</summary>
+          <div class="form-group">
+            <label for="titre_it">Titolo</label>
+            <input type="text" id="titre_it" name="titre_it" value="<%= project && project.titre_it ? project.titre_it : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="sous_titre_it">Sottotitolo</label>
+            <input type="text" id="sous_titre_it" name="sous_titre_it" value="<%= project && project.sous_titre_it ? project.sous_titre_it : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="description_it">Descrizione</label>
+            <textarea id="description_it" name="description_it"><%= project && project.description_it ? project.description_it : '' %></textarea>
+          </div>
+        </details>
+
         <div class="form-row">
           <div class="form-group">
             <label for="ordre_affichage">Ordre d'affichage</label>

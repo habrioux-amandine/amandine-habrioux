@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
   try {
     const { data: projects, error } = await supabasePublic
       .from('projects')
-      .select('id, titre, image_couverture, ordre_affichage')
+      .select('id, titre, titre_en, titre_it, image_couverture, ordre_affichage')
       .eq('published', true)
       .order('ordre_affichage', { ascending: true });
 
@@ -90,6 +90,7 @@ router.get('/profil', async (req, res, next) => {
     next(err);
   }
 });
+
 // ---------- CONTACT ----------
 router.get('/contact', async (req, res, next) => {
   try {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<%= lang %>">
 <head>
   <title>Page introuvable</title>
   <%- include('partials/head') %>
@@ -9,8 +9,8 @@
   <main>
     <div class="not-found">
       <h1>404</h1>
-      <p>Cette page n'existe pas.</p>
-      <a href="/" class="btn" style="margin-top:24px;">Retour à l'accueil</a>
+      <p><%= t('notfound.text') %></p>
+      <a href="/" class="btn" style="margin-top:24px;"><%= t('notfound.back') %></a>
     </div>
   </main>
 </body>

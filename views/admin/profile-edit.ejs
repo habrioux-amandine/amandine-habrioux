@@ -26,6 +26,22 @@
           <textarea id="texte" name="texte" style="min-height:280px;"><%= profile.texte || '' %></textarea>
         </div>
 
+        <details class="lang-section">
+          <summary>🇬🇧 English</summary>
+          <div class="form-group">
+            <label for="texte_en">Text</label>
+            <textarea id="texte_en" name="texte_en" style="min-height:200px;"><%= profile.texte_en || '' %></textarea>
+          </div>
+        </details>
+
+        <details class="lang-section">
+          <summary>🇮🇹 Italiano</summary>
+          <div class="form-group">
+            <label for="texte_it">Testo</label>
+            <textarea id="texte_it" name="texte_it" style="min-height:200px;"><%= profile.texte_it || '' %></textarea>
+          </div>
+        </details>
+
         <button type="submit" class="btn">Enregistrer</button>
       </form>
     </div>
@@ -72,6 +88,51 @@
           <label for="description-<%= exp.id %>">Description</label>
           <textarea id="description-<%= exp.id %>" name="description" style="min-height:80px;"><%= exp.description || '' %></textarea>
         </div>
+
+        <details class="lang-section">
+          <summary>🇬🇧 English</summary>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="periode_en-<%= exp.id %>">Period</label>
+              <input type="text" id="periode_en-<%= exp.id %>" name="periode_en" value="<%= exp.periode_en || '' %>" />
+            </div>
+            <div class="form-group">
+              <label for="poste_en-<%= exp.id %>">Position</label>
+              <input type="text" id="poste_en-<%= exp.id %>" name="poste_en" value="<%= exp.poste_en || '' %>" />
+            </div>
+            <div class="form-group">
+              <label for="structure_en-<%= exp.id %>">Company</label>
+              <input type="text" id="structure_en-<%= exp.id %>" name="structure_en" value="<%= exp.structure_en || '' %>" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description_en-<%= exp.id %>">Description</label>
+            <textarea id="description_en-<%= exp.id %>" name="description_en" style="min-height:80px;"><%= exp.description_en || '' %></textarea>
+          </div>
+        </details>
+
+        <details class="lang-section">
+          <summary>🇮🇹 Italiano</summary>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="periode_it-<%= exp.id %>">Periodo</label>
+              <input type="text" id="periode_it-<%= exp.id %>" name="periode_it" value="<%= exp.periode_it || '' %>" />
+            </div>
+            <div class="form-group">
+              <label for="poste_it-<%= exp.id %>">Ruolo</label>
+              <input type="text" id="poste_it-<%= exp.id %>" name="poste_it" value="<%= exp.poste_it || '' %>" />
+            </div>
+            <div class="form-group">
+              <label for="structure_it-<%= exp.id %>">Azienda</label>
+              <input type="text" id="structure_it-<%= exp.id %>" name="structure_it" value="<%= exp.structure_it || '' %>" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description_it-<%= exp.id %>">Descrizione</label>
+            <textarea id="description_it-<%= exp.id %>" name="description_it" style="min-height:80px;"><%= exp.description_it || '' %></textarea>
+          </div>
+        </details>
+
         <button type="submit" class="btn btn-quiet">Enregistrer</button>
       </form>
     </div>
@@ -96,8 +157,53 @@
   </div>
   <div class="form-group">
     <label for="new-description">Description</label>
-    <textarea id="new-description" name="description" style="min-height:80px;"></textarea>
+    <textarea id="new-description" name="description"></textarea>
   </div>
+
+  <details class="lang-section">
+    <summary>🇬🇧 English</summary>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="new-periode_en">Period</label>
+        <input type="text" id="new-periode_en" name="periode_en" />
+      </div>
+      <div class="form-group">
+        <label for="new-poste_en">Position</label>
+        <input type="text" id="new-poste_en" name="poste_en" />
+      </div>
+      <div class="form-group">
+        <label for="new-structure_en">Company</label>
+        <input type="text" id="new-structure_en" name="structure_en" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="new-description_en">Description</label>
+      <textarea id="new-description_en" name="description_en"></textarea>
+    </div>
+  </details>
+
+  <details class="lang-section">
+    <summary>🇮🇹 Italiano</summary>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="new-periode_it">Periodo</label>
+        <input type="text" id="new-periode_it" name="periode_it" />
+      </div>
+      <div class="form-group">
+        <label for="new-poste_it">Ruolo</label>
+        <input type="text" id="new-poste_it" name="poste_it" />
+      </div>
+      <div class="form-group">
+        <label for="new-structure_it">Azienda</label>
+        <input type="text" id="new-structure_it" name="structure_it" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="new-description_it">Descrizione</label>
+      <textarea id="new-description_it" name="description_it"></textarea>
+    </div>
+  </details>
+
   <button type="submit" class="btn">Ajouter</button>
 </form>
   </main>

@@ -84,7 +84,12 @@ router.get('/projets/nouveau', (req, res) => {
 
 router.post('/projets/nouveau', upload.single('image_couverture'), async (req, res, next) => {
   try {
-    const { titre, sous_titre, description, ordre_affichage, published } = req.body;
+    const {
+      titre, titre_en, titre_it,
+      sous_titre, sous_titre_en, sous_titre_it,
+      description, description_en, description_it,
+      ordre_affichage, published,
+    } = req.body;
     let image_couverture = null;
 
     if (req.file) {
@@ -93,9 +98,9 @@ router.post('/projets/nouveau', upload.single('image_couverture'), async (req, r
     }
 
     const { error } = await supabaseAdmin.from('projects').insert({
-      titre,
-      sous_titre,
-      description,
+      titre, titre_en, titre_it,
+      sous_titre, sous_titre_en, sous_titre_it,
+      description, description_en, description_it,
       ordre_affichage: parseInt(ordre_affichage, 10) || 0,
       published: published === 'on',
       image_couverture,
@@ -107,7 +112,6 @@ router.post('/projets/nouveau', upload.single('image_couverture'), async (req, r
     next(err);
   }
 });
-
 // ---------- EDITER UN PROJET ----------
 router.get('/projets/:id', async (req, res, next) => {
   try {
@@ -137,11 +141,16 @@ router.get('/projets/:id', async (req, res, next) => {
 
 router.post('/projets/:id', upload.single('image_couverture'), async (req, res, next) => {
   try {
-    const { titre, sous_titre, description, ordre_affichage, published } = req.body;
+    const {
+      titre, titre_en, titre_it,
+      sous_titre, sous_titre_en, sous_titre_it,
+      description, description_en, description_it,
+      ordre_affichage, published,
+    } = req.body;
     const updates = {
-      titre,
-      sous_titre,
-      description,
+      titre, titre_en, titre_it,
+      sous_titre, sous_titre_en, sous_titre_it,
+      description, description_en, description_it,
       ordre_affichage: parseInt(ordre_affichage, 10) || 0,
       published: published === 'on',
     };
@@ -159,7 +168,6 @@ router.post('/projets/:id', upload.single('image_couverture'), async (req, res, 
     next(err);
   }
 });
-
 router.post('/projets/:id/supprimer', async (req, res, next) => {
   try {
     const { error } = await supabaseAdmin.from('projects').delete().eq('id', req.params.id);
@@ -231,8 +239,8 @@ router.get('/profil', async (req, res, next) => {
   }
 });router.post('/profil', upload.single('photo'), async (req, res, next) => {
   try {
-    const { texte } = req.body;
-    const updates = { texte };
+    const { texte, texte_en, texte_it } = req.body;
+    const updates = { texte, texte_en, texte_it };
 
     if (req.file) {
       const { buffer, contentType } = await compressImage(req.file.buffer, { maxWidth: 1200 });
@@ -260,12 +268,21 @@ async function getOrderedExperiences() {
 
 router.post('/profil/experiences', async (req, res, next) => {
   try {
-    const { periode, poste, structure, description } = req.body;
+    const {
+      periode, periode_en, periode_it,
+      poste, poste_en, poste_it,
+      structure, structure_en, structure_it,
+      description, description_en, description_it,
+    } = req.body;
     const experiences = await getOrderedExperiences();
     const nextOrdre = experiences.length ? experiences[experiences.length - 1].ordre + 1 : 0;
 
     const { error } = await supabaseAdmin.from('experiences').insert({
-      periode, poste, structure, description, ordre: nextOrdre,
+      periode, periode_en, periode_it,
+      poste, poste_en, poste_it,
+      structure, structure_en, structure_it,
+      description, description_en, description_it,
+      ordre: nextOrdre,
     });
     if (error) throw error;
 
@@ -274,13 +291,22 @@ router.post('/profil/experiences', async (req, res, next) => {
     next(err);
   }
 });
-
 router.post('/profil/experiences/:id', async (req, res, next) => {
   try {
-    const { periode, poste, structure, description } = req.body;
+    const {
+      periode, periode_en, periode_it,
+      poste, poste_en, poste_it,
+      structure, structure_en, structure_it,
+      description, description_en, description_it,
+    } = req.body;
     const { error } = await supabaseAdmin
       .from('experiences')
-      .update({ periode, poste, structure, description })
+      .update({
+        periode, periode_en, periode_it,
+        poste, poste_en, poste_it,
+        structure, structure_en, structure_it,
+        description, description_en, description_it,
+      })
       .eq('id', req.params.id);
     if (error) throw error;
     res.redirect('/admin/profil');

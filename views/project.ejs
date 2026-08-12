@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<%= lang %>">
 <head>
-  <title><%= project.titre %> — Amandine Habrioux</title>
+  <title><%= pick(project, 'titre') %> — Amandine Habrioux</title>
   <%- include('partials/head') %>
 </head>
 <body>
@@ -9,13 +9,13 @@
   <main>
     <div class="project-page">
       <div class="project-info">
-        <a href="/" class="project-back">← Tous les projets</a>
-        <h1><%= project.titre %></h1>
-        <% if (project.sous_titre) { %>
-          <div class="subtitle"><%= project.sous_titre %></div>
+        <a href="/" class="project-back"><%= t('project.back') %></a>
+        <h1><%= pick(project, 'titre') %></h1>
+        <% if (pick(project, 'sous_titre')) { %>
+          <div class="subtitle"><%= pick(project, 'sous_titre') %></div>
         <% } %>
-        <% if (project.description) { %>
-          <div class="description"><%= project.description %></div>
+        <% if (pick(project, 'description')) { %>
+          <div class="description"><%= pick(project, 'description') %></div>
         <% } %>
       </div>
 
@@ -24,15 +24,15 @@
           <% if (gallery && gallery.length > 0) { %>
             <% gallery.forEach((img) => { %>
               <figure>
-                <img src="<%= img.url %>" alt="<%= project.titre %>" loading="lazy" />
+                <img src="<%= img.url %>" alt="<%= pick(project, 'titre') %>" loading="lazy" />
               </figure>
             <% }) %>
           <% } %>
         </div>
 
         <% if (gallery && gallery.length > 1) { %>
-          <button class="gallery-arrow prev" aria-label="Image précédente">←</button>
-          <button class="gallery-arrow next" aria-label="Image suivante">→</button>
+          <button class="gallery-arrow prev" aria-label="<%= t('gallery.prev') %>">←</button>
+          <button class="gallery-arrow next" aria-label="<%= t('gallery.next') %>">→</button>
           <div class="gallery-nav">
             <% gallery.forEach((_, i) => { %>
               <span class="gallery-dot <%= i === 0 ? 'active' : '' %>"></span>

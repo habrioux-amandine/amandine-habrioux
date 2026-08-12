@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<%= lang %>">
 <head>
   <title>Amandine Habrioux — Architecte</title>
   <%- include('partials/head') %>
@@ -13,18 +13,18 @@
           <a class="project-row" href="/projet/<%= p.id %>">
             <span class="project-row-index"><%= String(i + 1).padStart(2, '0') %> — <%= String(projects.length).padStart(2, '0') %></span>
             <% if (p.image_url) { %>
-              <img src="<%= p.image_url %>" alt="<%= p.titre %>" loading="lazy" />
+              <img src="<%= p.image_url %>" alt="<%= pick(p, 'titre') %>" loading="lazy" />
             <% } else { %>
               <div class="project-row-noimage"></div>
             <% } %>
             <div class="project-row-title">
-              <h2><%= p.titre %></h2>
+              <h2><%= pick(p, 'titre') %></h2>
             </div>
           </a>
         <% }) %>
       </div>
     <% } else { %>
-      <div class="empty-state">Aucun projet publié pour le moment.</div>
+      <div class="empty-state"><%= t('home.empty') %></div>
     <% } %>
   </main>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<%= lang %>">
 <head>
   <title>Profil — Amandine Habrioux</title>
   <%- include('partials/head') %>
@@ -11,17 +11,17 @@
       <% if (profile.photo_url) { %>
         <img class="profile-photo" src="<%= profile.photo_url %>" alt="Portrait" />
       <% } %>
-     <div class="profile-text"><%= profile.texte || '' %></div>
+     <div class="profile-text"><%= pick(profile, 'texte') %></div>
 
       <% if (experiences && experiences.length) { %>
         <ul class="experience-timeline">
           <% experiences.forEach((exp) => { %>
             <li>
-              <span class="experience-period"><%= exp.periode || '' %></span>
+              <span class="experience-period"><%= pick(exp, 'periode') %></span>
               <div class="experience-body">
-                <h3 class="experience-poste"><%= exp.poste %></h3>
-                <% if (exp.structure) { %><p class="experience-structure"><%= exp.structure %></p><% } %>
-                <% if (exp.description) { %><p class="experience-description"><%= exp.description %></p><% } %>
+                <h3 class="experience-poste"><%= pick(exp, 'poste') %></h3>
+                <% if (pick(exp, 'structure')) { %><p class="experience-structure"><%= pick(exp, 'structure') %></p><% } %>
+                <% if (pick(exp, 'description')) { %><p class="experience-description"><%= pick(exp, 'description') %></p><% } %>
               </div>
             </li>
           <% }) %>

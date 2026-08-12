@@ -5,6 +5,7 @@ const path = require('path');
 
 const publicRoutes = require('./src/routes/public');
 const adminRoutes = require('./src/routes/admin');
+const { detectLang } = require('./src/middleware/lang');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(detectLang);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', adminRoutes);
