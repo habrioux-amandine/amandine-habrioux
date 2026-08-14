@@ -814,7 +814,10 @@ main { min-height: 100vh; }
 }
 
 @media (max-width: 480px) {
-  .skill-level-label { display: none; }
+  .skills-table td:last-child {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
 }
 
 .form-group select {
