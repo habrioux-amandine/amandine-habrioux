@@ -83,6 +83,13 @@ transform: translateY(0);
   backdrop-filter: none;
   border-bottom: none;
 }
+
+.nav-overlay .nav-brand,
+.nav-overlay .nav-link,
+.nav-overlay .nav-lang-link {
+  color: #ffffff;
+}
+
 .nav-brand {
   font-family: var(--font-display);
   font-weight: 700;
