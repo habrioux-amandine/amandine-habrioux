@@ -352,6 +352,12 @@ main { min-height: 100vh; }
   color: var(--color-text-soft);
 }
 
+@media (max-width: 640px) {
+  .project-back {
+    margin-top: 12px;
+  }
+}
+
 .project-info h1 {
   font-size: clamp(2rem, 3.6vw, 3rem);
   line-height: 1.05;
