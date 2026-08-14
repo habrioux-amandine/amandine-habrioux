@@ -7,6 +7,18 @@
 <body>
   <%- include('partials/nav') %>
   <main>
+    <% if (heroSlides && heroSlides.length > 0) { %>
+      <section class="hero-slideshow" id="heroSlideshow" data-speed="<%= heroSpeed %>">
+        <% heroSlides.forEach((s, i) => { %>
+          <img
+            class="hero-slide <%= i === 0 ? 'active' : '' %>"
+            src="<%= s.url %>"
+            alt=""
+            <% if (i === 0) { %>fetchpriority="high"<% } else { %>loading="lazy"<% } %>
+          />
+        <% }) %>
+      </section>
+    <% } %>
     <% if (projects && projects.length > 0) { %>
       <div class="project-list">
         <% projects.forEach((p, i) => { %>
@@ -27,5 +39,6 @@
       <div class="empty-state"><%= t('home.empty') %></div>
     <% } %>
   </main>
+  <script src="/js/hero.js"></script>
 </body>
 </html>

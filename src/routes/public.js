@@ -24,7 +24,32 @@ router.get('/', async (req, res, next) => {
       image_url: publicUrl(p.image_couverture),
     }));
 
-    res.render('index', { projects: projectsWithUrls, page: 'home' });
+    const { data: heroSlides, error: heroError } = await supabasePublic
+      .from('hero_slides')
+      .select('id, image, ordre')
+      .order('ordre', { ascending: true });
+
+    if (heroError) throw heroError;
+
+    const { data: heroSettings, error: heroSettingsError } = await supabasePublic
+      .from('hero_settings')
+      .select('vitesse_ms')
+      .eq('id', 1)
+      .single();
+
+    if (heroSettingsError) throw heroSettingsError;
+
+    const heroSlidesWithUrls = (heroSlides || []).map((s) => ({
+      ...s,
+      url: publicUrl(s.image),
+    }));
+
+    res.render('index', {
+      projects: projectsWithUrls,
+      heroSlides: heroSlidesWithUrls,
+      heroSpeed: (heroSettings && heroSettings.vitesse_ms) || 5000,
+      page: 'home',
+    });
   } catch (err) {
     next(err);
   }

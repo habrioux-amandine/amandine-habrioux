@@ -221,6 +221,117 @@ router.post('/projets/:id/images/:imageId/supprimer', async (req, res, next) => 
   }
 });
 
+// ---------- DIAPORAMA (accueil) ----------
+async function getOrderedHeroSlides() {
+  const { data, error } = await supabaseAdmin
+    .from('hero_slides')
+    .select('*')
+    .order('ordre', { ascending: true });
+  if (error) throw error;
+  return data || [];
+}
+
+router.get('/diaporama', async (req, res, next) => {
+  try {
+    const slides = await getOrderedHeroSlides();
+
+    const { data: settings, error: settingsError } = await supabaseAdmin
+      .from('hero_settings')
+      .select('*')
+      .eq('id', 1)
+      .single();
+    if (settingsError) throw settingsError;
+
+    res.render('admin/hero-edit', {
+      slides: slides.map((s) => ({ ...s, url: publicUrl(s.image) })),
+      vitesseMs: settings.vitesse_ms,
+      page: 'admin-diaporama',
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/diaporama/images', upload.array('images', 20), async (req, res, next) => {
+  try {
+    const files = req.files || [];
+    const slides = await getOrderedHeroSlides();
+    let nextOrdre = slides.length ? slides[slides.length - 1].ordre + 1 : 0;
+
+    for (const file of files) {
+      // Images larges destinées à s'afficher en plein écran : on garde davantage de définition.
+      const { buffer, contentType } = await compressImage(file.buffer, { maxWidth: 2400, quality: 82 });
+      const path = await uploadToStorage(buffer, contentType, 'hero');
+      await supabaseAdmin.from('hero_slides').insert({ image: path, ordre: nextOrdre++ });
+    }
+
+    res.redirect('/admin/diaporama');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/diaporama/images/:id/supprimer', async (req, res, next) => {
+  try {
+    const { error } = await supabaseAdmin.from('hero_slides').delete().eq('id', req.params.id);
+    if (error) throw error;
+    res.redirect('/admin/diaporama');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/diaporama/images/:id/monter', async (req, res, next) => {
+  try {
+    const slides = await getOrderedHeroSlides();
+    const index = slides.findIndex((s) => s.id === req.params.id);
+    if (index > 0) {
+      const current = slides[index];
+      const previous = slides[index - 1];
+      await supabaseAdmin.from('hero_slides').update({ ordre: previous.ordre }).eq('id', current.id);
+      await supabaseAdmin.from('hero_slides').update({ ordre: current.ordre }).eq('id', previous.id);
+    }
+    res.redirect('/admin/diaporama');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/diaporama/images/:id/descendre', async (req, res, next) => {
+  try {
+    const slides = await getOrderedHeroSlides();
+    const index = slides.findIndex((s) => s.id === req.params.id);
+    if (index !== -1 && index < slides.length - 1) {
+      const current = slides[index];
+      const suivante = slides[index + 1];
+      await supabaseAdmin.from('hero_slides').update({ ordre: suivante.ordre }).eq('id', current.id);
+      await supabaseAdmin.from('hero_slides').update({ ordre: current.ordre }).eq('id', suivante.id);
+    }
+    res.redirect('/admin/diaporama');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/diaporama/vitesse', async (req, res, next) => {
+  try {
+    // Le formulaire propose un réglage en secondes, plus lisible pour l'admin,
+    // converti ici en millisecondes pour le stockage.
+    const secondes = parseFloat(req.body.vitesse_s);
+    const vitesse_ms = Math.round((Number.isFinite(secondes) && secondes > 0 ? secondes : 5) * 1000);
+
+    const { error } = await supabaseAdmin
+      .from('hero_settings')
+      .update({ vitesse_ms })
+      .eq('id', 1);
+    if (error) throw error;
+
+    res.redirect('/admin/diaporama');
+  } catch (err) {
+    next(err);
+  }
+});
+
 // ---------- PROFIL ----------
 router.get('/profil', async (req, res, next) => {
   try {

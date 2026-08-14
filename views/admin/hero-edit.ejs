@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Diaporama — Administration</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <main>
+    <div class="admin-shell">
+      <div class="admin-header">
+        <h1>Diaporama d'accueil</h1>
+        <div class="admin-header-actions">
+          <a href="/admin" class="btn btn-quiet">← Projets</a>
+          <a href="/" class="btn btn-quiet" target="_blank">Voir le site</a>
+        </div>
+      </div>
+
+      <p style="color:var(--color-text-soft); font-size:0.9rem; max-width:60ch;">
+        Ces photos s'affichent en plein écran en haut de la page d'accueil, avant la liste des projets.
+        Elles défilent automatiquement dans l'ordre ci-dessous.
+      </p>
+
+      <h2 style="margin:40px 0 8px;">Vitesse de défilement</h2>
+      <form method="POST" action="/admin/diaporama/vitesse" style="max-width:280px;">
+        <div class="form-group">
+          <label for="vitesse_s">Durée d'affichage par photo (secondes)</label>
+          <input
+            type="number"
+            id="vitesse_s"
+            name="vitesse_s"
+            min="1"
+            step="0.5"
+            value="<%= (vitesseMs / 1000).toFixed(1) %>"
+          />
+        </div>
+        <button type="submit" class="btn btn-quiet">Enregistrer la vitesse</button>
+      </form>
+
+      <h2 style="margin:48px 0 8px;">Photos</h2>
+      <form method="POST" action="/admin/diaporama/images" enctype="multipart/form-data" style="margin-top:20px;">
+        <div class="form-group">
+          <label for="images">Ajouter des photos</label>
+          <input type="file" id="images" name="images" accept="image/*" multiple />
+        </div>
+        <button type="submit" class="btn btn-quiet">Ajouter au diaporama</button>
+      </form>
+
+      <% if (slides && slides.length > 0) { %>
+        <div class="experience-list" style="margin-top:24px;">
+          <% slides.forEach((s, i) => { %>
+            <div class="experience-item" style="display:flex; align-items:center; gap:20px;">
+              <img src="<%= s.url %>" alt="" style="width:120px; height:80px; object-fit:cover; flex-shrink:0;" />
+              <span style="color:var(--color-text-soft); font-size:0.85rem;">Photo <%= i + 1 %> / <%= slides.length %></span>
+
+              <div class="experience-move" style="position:static; margin-left:auto;">
+                <form method="POST" action="/admin/diaporama/images/<%= s.id %>/monter">
+                  <button type="submit" class="experience-move-btn" <%= i === 0 ? 'disabled' : '' %>>↑</button>
+                </form>
+                <form method="POST" action="/admin/diaporama/images/<%= s.id %>/descendre">
+                  <button type="submit" class="experience-move-btn" <%= i === slides.length - 1 ? 'disabled' : '' %>>↓</button>
+                </form>
+              </div>
+
+              <form method="POST" action="/admin/diaporama/images/<%= s.id %>/supprimer"
+                onsubmit="return confirm('Retirer cette photo du diaporama ?');">
+                <button type="submit" class="btn btn-quiet" style="border-color:#a12b2b; color:#a12b2b;">Supprimer</button>
+              </form>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <p style="margin-top:16px; color:var(--color-text-soft);">Aucune photo pour l'instant. Le diaporama ne s'affichera pas tant qu'aucune photo n'est ajoutée.</p>
+      <% } %>
+    </div>
+  </main>
+</body>
+</html>
