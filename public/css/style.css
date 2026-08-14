@@ -68,11 +68,8 @@ h1, h2, h3, .display {
   justify-content: space-between;
   padding: 0 var(--gutter);
   z-index: 100;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--color-line);
+  background: transparent;
 }
-
 .nav-brand {
   font-family: var(--font-display);
   font-weight: 700;
@@ -132,7 +129,7 @@ h1, h2, h3, .display {
   }
 }
 
-main { padding-top: var(--nav-height); min-height: 100vh; }
+main { min-height: 100vh; }
 
 /* ============================================================
    ACCUEIL — diaporama plein écran
@@ -168,8 +165,8 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
 .project-list {
   display: flex;
   flex-direction: column;
+  padding-top: var(--nav-height);
 }
-
 .project-row {
   position: relative;
   display: flex;
@@ -291,7 +288,10 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
 .project-page {
   display: grid;
   grid-template-columns: 38% 62%;
-  min-height: calc(100vh - var(--nav-height));
+  min-height: 100vh;
+}
+
+.project-info { padding-top: calc(var(--nav-height) + 64px); }
 }
 
 @media (max-width: 900px) {
@@ -418,7 +418,7 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
 .profile-page {
   max-width: 900px;
   margin: 0 auto;
-  padding: 72px var(--gutter) 100px;
+  padding: calc(var(--nav-height) + 72px) var(--gutter) 100px;
 }
 
 .profile-photo {
@@ -472,7 +472,7 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
 .contact-page {
   max-width: 720px;
   margin: 0 auto;
-  padding: 100px var(--gutter);
+  padding: calc(var(--nav-height) + 100px) var(--gutter) 100px;
 }
 
 .contact-list {
@@ -513,7 +513,7 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
 /* ============================================================
    ADMIN
    ============================================================ */
-.admin-shell { max-width: 1000px; margin: 0 auto; padding: 56px var(--gutter) 100px; }
+.admin-shell { max-width: 1000px; margin: 0 auto; padding: calc(var(--nav-height) + 56px) var(--gutter) 100px; }
 
 .admin-header {
   display: flex;
@@ -712,7 +712,9 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - var(--nav-height));
+  height: 100vh;
+  padding-top: var(--nav-height);
+  box-sizing: border-box;
   text-align: center;
 }
 
