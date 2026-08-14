@@ -156,6 +156,16 @@ main { min-height: 100vh; }
   border-bottom: 1px solid var(--color-line);
 }
 
+.hero-slideshow::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  z-index: 4;
+  pointer-events: none;
+}
+
 .hero-slide {
   position: absolute;
   inset: 0;
