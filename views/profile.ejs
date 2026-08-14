@@ -27,6 +27,32 @@
           <% }) %>
         </ul>
       <% } %>
+<% if (logiciels && logiciels.length) { %>
+        <div class="skills-section">
+          <h2 class="skills-title"><%= t('skills.title') %></h2>
+          <table class="skills-table">
+            <thead>
+              <tr>
+                <th><%= t('skills.software') %></th>
+                <th><%= t('skills.level') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% logiciels.forEach((log) => { %>
+                <tr>
+                  <td><%= log.nom %></td>
+                  <td>
+                    <span class="skill-level skill-level-<%= log.niveau %>">
+                      <% for (let i = 1; i <= 4; i++) { %><span class="skill-dot <%= i <= log.niveau ? 'filled' : '' %>"></span><% } %>
+                    </span>
+                    <span class="skill-level-label"><%= t('niveau.' + log.niveau) %></span>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
     </div>
   </main>
 </body>

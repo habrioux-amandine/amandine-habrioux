@@ -206,6 +206,71 @@
 
   <button type="submit" class="btn">Ajouter</button>
 </form>
+<hr style="margin:48px 0; border:none; border-top:1px solid var(--color-line);" />
+
+<h2 style="margin-bottom:8px;">Logiciels maîtrisés</h2>
+<p style="color:var(--color-text-soft); font-size:0.9rem; margin-bottom:8px;">
+  Affichés sous forme de tableau, sous les expériences. Utilisez les flèches pour réordonner.
+</p>
+
+<div class="experience-list">
+  <% logiciels.forEach((log, index) => { %>
+    <div class="experience-item skill-item">
+      <div class="experience-move">
+        <form method="POST" action="/admin/profil/logiciels/<%= log.id %>/monter">
+          <button type="submit" class="experience-move-btn" <%= index === 0 ? 'disabled' : '' %>>↑</button>
+        </form>
+        <form method="POST" action="/admin/profil/logiciels/<%= log.id %>/descendre">
+          <button type="submit" class="experience-move-btn" <%= index === logiciels.length - 1 ? 'disabled' : '' %>>↓</button>
+        </form>
+      </div>
+
+      <form method="POST" action="/admin/profil/logiciels/<%= log.id %>/supprimer"
+        onsubmit="return confirm('Supprimer ce logiciel ?');" class="experience-delete">
+        <button type="submit">✕</button>
+      </form>
+
+      <form method="POST" action="/admin/profil/logiciels/<%= log.id %>">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom-<%= log.id %>">Logiciel</label>
+            <input type="text" id="nom-<%= log.id %>" name="nom" required value="<%= log.nom || '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="niveau-<%= log.id %>">Niveau</label>
+            <select id="niveau-<%= log.id %>" name="niveau">
+              <option value="1" <%= log.niveau === 1 ? 'selected' : '' %>>Notions</option>
+              <option value="2" <%= log.niveau === 2 ? 'selected' : '' %>>Intermédiaire</option>
+              <option value="3" <%= log.niveau === 3 ? 'selected' : '' %>>Avancé</option>
+              <option value="4" <%= log.niveau === 4 ? 'selected' : '' %>>Expert</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-quiet">Enregistrer</button>
+      </form>
+    </div>
+  <% }) %>
+</div>
+
+<h3 style="margin:32px 0 8px;">Ajouter un logiciel</h3>
+<form method="POST" action="/admin/profil/logiciels">
+  <div class="form-row">
+    <div class="form-group">
+      <label for="new-nom">Logiciel</label>
+      <input type="text" id="new-nom" name="nom" required placeholder="AutoCAD, Revit, SketchUp…" />
+    </div>
+    <div class="form-group">
+      <label for="new-niveau">Niveau</label>
+      <select id="new-niveau" name="niveau">
+        <option value="1">Notions</option>
+        <option value="2" selected>Intermédiaire</option>
+        <option value="3">Avancé</option>
+        <option value="4">Expert</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn">Ajouter</button>
+</form>
   </main>
 </body>
 </html>

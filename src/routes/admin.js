@@ -228,10 +228,12 @@ router.get('/profil', async (req, res, next) => {
     if (error) throw error;
 
     const experiences = await getOrderedExperiences();
+    const logiciels = await getOrderedLogiciels();
 
     res.render('admin/profile-edit', {
       profile: { ...profile, photo_url: publicUrl(profile.photo) },
       experiences,
+      logiciels,
       page: 'admin-profile',
     });
   } catch (err) {
@@ -350,6 +352,91 @@ router.post('/profil/experiences/:id/descendre', async (req, res, next) => {
       const suivante = experiences[index + 1];
       await supabaseAdmin.from('experiences').update({ ordre: suivante.ordre }).eq('id', current.id);
       await supabaseAdmin.from('experiences').update({ ordre: current.ordre }).eq('id', suivante.id);
+    }
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ---------- LOGICIELS (profil) ----------
+async function getOrderedLogiciels() {
+  const { data, error } = await supabaseAdmin
+    .from('logiciels')
+    .select('*')
+    .order('ordre', { ascending: true });
+  if (error) throw error;
+  return data || [];
+}
+
+router.post('/profil/logiciels', async (req, res, next) => {
+  try {
+    const { nom, niveau } = req.body;
+    const logiciels = await getOrderedLogiciels();
+    const nextOrdre = logiciels.length ? logiciels[logiciels.length - 1].ordre + 1 : 0;
+
+    const { error } = await supabaseAdmin.from('logiciels').insert({
+      nom,
+      niveau: parseInt(niveau, 10) || 2,
+      ordre: nextOrdre,
+    });
+    if (error) throw error;
+
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/logiciels/:id', async (req, res, next) => {
+  try {
+    const { nom, niveau } = req.body;
+    const { error } = await supabaseAdmin
+      .from('logiciels')
+      .update({ nom, niveau: parseInt(niveau, 10) || 2 })
+      .eq('id', req.params.id);
+    if (error) throw error;
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/logiciels/:id/supprimer', async (req, res, next) => {
+  try {
+    const { error } = await supabaseAdmin.from('logiciels').delete().eq('id', req.params.id);
+    if (error) throw error;
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/logiciels/:id/monter', async (req, res, next) => {
+  try {
+    const logiciels = await getOrderedLogiciels();
+    const index = logiciels.findIndex((l) => l.id === req.params.id);
+    if (index > 0) {
+      const current = logiciels[index];
+      const previous = logiciels[index - 1];
+      await supabaseAdmin.from('logiciels').update({ ordre: previous.ordre }).eq('id', current.id);
+      await supabaseAdmin.from('logiciels').update({ ordre: current.ordre }).eq('id', previous.id);
+    }
+    res.redirect('/admin/profil');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/profil/logiciels/:id/descendre', async (req, res, next) => {
+  try {
+    const logiciels = await getOrderedLogiciels();
+    const index = logiciels.findIndex((l) => l.id === req.params.id);
+    if (index !== -1 && index < logiciels.length - 1) {
+      const current = logiciels[index];
+      const suivant = logiciels[index + 1];
+      await supabaseAdmin.from('logiciels').update({ ordre: suivant.ordre }).eq('id', current.id);
+      await supabaseAdmin.from('logiciels').update({ ordre: current.ordre }).eq('id', suivant.id);
     }
     res.redirect('/admin/profil');
   } catch (err) {

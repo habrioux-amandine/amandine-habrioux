@@ -664,6 +664,17 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
   cursor: pointer;
   font-family: var(--font-display);
 }
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-line);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.skill-item { padding-bottom: 20px; }
 
 /* ============================================================
    404
@@ -719,3 +730,71 @@ main { padding-top: var(--nav-height); min-height: 100vh; }
 }
 
 .lang-section[open] summary { margin-bottom: 4px; }
+
+.skills-section { margin-top: 56px; }
+
+.skills-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-soft);
+  margin-bottom: 20px;
+}
+
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.skills-table th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.skills-table td {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.95rem;
+}
+
+.skills-table td:last-child { display: flex; align-items: center; gap: 10px; }
+
+.skill-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-soft);
+  margin-right: 3px;
+}
+
+.skill-dot.filled { background: var(--color-text); border-color: var(--color-text); }
+
+.skill-level-label {
+  font-size: 0.78rem;
+  color: var(--color-text-soft);
+  margin-left: 4px;
+}
+
+@media (max-width: 480px) {
+  .skill-level-label { display: none; }
+}
+
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-line);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.skill-item { padding-bottom: 20px; }

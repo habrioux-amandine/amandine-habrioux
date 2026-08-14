@@ -81,9 +81,17 @@ router.get('/profil', async (req, res, next) => {
 
     if (expError) throw expError;
 
+    const { data: logiciels, error: logError } = await supabasePublic
+      .from('logiciels')
+      .select('*')
+      .order('ordre', { ascending: true });
+
+    if (logError) throw logError;
+
     res.render('profile', {
       profile: { ...profile, photo_url: publicUrl(profile.photo) },
       experiences: experiences || [],
+      logiciels: logiciels || [],
       page: 'profile',
     });
   } catch (err) {
