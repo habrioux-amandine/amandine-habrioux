@@ -3,6 +3,16 @@
 <head>
   <title><%= t('meta.profile.title') %></title>
   <meta name="description" content="<%= t('meta.profile.desc') %>" />
+  <script type="application/ld+json">
+  <%- JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Amandine Habrioux",
+    "jobTitle": "Architecte",
+    "description": (pick(profile, 'texte') || '').slice(0, 300),
+    "url": "https://amandine-habrioux.onrender.com/profil"
+  }) %>
+  </script>
   <%- include('partials/head') %>
 </head>
 <body>

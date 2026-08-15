@@ -3,6 +3,17 @@
 <head>
   <title><%= t('meta.contact.title') %></title>
   <meta name="description" content="<%= t('meta.contact.desc') %>" />
+  <script type="application/ld+json">
+  <%- JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Amandine Habrioux — Architecte",
+    "email": contact.email || undefined,
+    "telephone": contact.telephone || undefined,
+    "address": contact.adresse || undefined,
+    "url": "https://amandine-habrioux.onrender.com"
+  }) %>
+  </script>
   <%- include('partials/head') %>
 </head>
 <body>

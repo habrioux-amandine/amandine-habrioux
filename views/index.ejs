@@ -2,7 +2,16 @@
 <html lang="<%= lang %>">
 <head>
   <title><%= t('meta.home.title') %></title>
-  <meta name="description" content="<%= t('meta.home.desc') %>" />
+  <meta name="description" content="<%= t('meta.home.desc') %>"
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Amandine Habrioux",
+    "jobTitle": "Architecte",
+    "url": "https://amandine-habrioux.onrender.com"
+  }
+  </script> />
   <%- include('partials/head') %>
 </head>
 <body>
