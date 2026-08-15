@@ -82,7 +82,11 @@ router.get('/projet/:id', async (req, res, next) => {
       url: publicUrl(img.url_storage),
     }));
 
-    res.render('project', { project, gallery, page: 'project' });
+    res.render('project', {
+      project: { ...project, image_couverture_url: project.image_couverture ? publicUrl(project.image_couverture) : null },
+      gallery,
+      page: 'project',
+    });
   } catch (err) {
     next(err);
   }

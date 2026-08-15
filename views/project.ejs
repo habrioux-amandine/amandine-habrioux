@@ -3,6 +3,12 @@
 <head>
   <title><%= pick(project, 'titre') %> — Amandine Habrioux, Architecte</title>
   <meta name="description" content="<%= (pick(project, 'description') || '').slice(0, 155) %>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://amandine-habrioux.onrender.com/projet/<%= project.id %>" />
+  <meta property="og:title" content="<%= pick(project, 'titre') %> — Amandine Habrioux" />
+  <meta property="og:description" content="<%= (pick(project, 'description') || '').slice(0, 155) %>" />
+  <meta property="og:image" content="<%= project.image_couverture_url || 'https://amandine-habrioux.onrender.com/images/og-default.png' %>" />
+  <meta name="twitter:card" content="summary_large_image" />
   <%- include('partials/head') %>
 </head>
 <body>
