@@ -141,4 +141,42 @@ router.get('/contact', async (req, res, next) => {
   }
 });
 
+// ---------- SITEMAP ----------
+router.get('/sitemap.xml', async (req, res, next) => {
+  try {
+    const { data: projects, error } = await supabasePublic
+      .from('projects')
+      .select('id')
+      .eq('published', true);
+
+    if (error) throw error;
+
+    const baseUrl = 'https://amandine-habrioux.onrender.com';
+    const staticPages = ['', '/profil', '/contact'];
+
+    let urls = staticPages
+      .map((p) => `
+  <url>
+    <loc>${baseUrl}${p}</loc>
+  </url>`)
+      .join('');
+
+    urls += (projects || [])
+      .map((p) => `
+  <url>
+    <loc>${baseUrl}/projet/${p.id}</loc>
+  </url>`)
+      .join('');
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}
+</urlset>`;
+
+    res.header('Content-Type', 'application/xml');
+    res.send(xml);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
