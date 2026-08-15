@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="<%= lang %>">
 <head>
-  <title><%= pick(project, 'titre') %> — Amandine Habrioux</title>
+  <title><%= pick(project, 'titre') %> — Amandine Habrioux, Architecte</title>
+  <meta name="description" content="<%= (pick(project, 'description') || '').slice(0, 155) %>" />
   <%- include('partials/head') %>
 </head>
 <body>
