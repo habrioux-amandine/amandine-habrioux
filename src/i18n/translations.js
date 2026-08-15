@@ -29,6 +29,8 @@ module.exports = {
     'meta.profile.desc': 'Parcours, expériences professionnelles et compétences d\'Amandine Habrioux, architecte.',
     'meta.contact.title': 'Contact — Amandine Habrioux, Architecte',
     'meta.contact.desc': 'Contactez Amandine Habrioux, architecte, pour vos projets.',
+'contact.share': 'Partager le site',
+    'contact.share.copied': 'Lien copié !',
   },
   en: {
     'site.suffix': 'Architect',
@@ -60,6 +62,8 @@ module.exports = {
     'meta.profile.desc': 'Background, professional experience and skills of Amandine Habrioux, architect.',
     'meta.contact.title': 'Contact — Amandine Habrioux, Architect',
     'meta.contact.desc': 'Get in touch with Amandine Habrioux, architect, for your projects.',
+'contact.share': 'Share the site',
+    'contact.share.copied': 'Link copied!',
   },
   it: {
     'site.suffix': 'Architetto',
@@ -91,5 +95,7 @@ module.exports = {
     'meta.profile.desc': 'Percorso, esperienze professionali e competenze di Amandine Habrioux, architetto.',
     'meta.contact.title': 'Contatto — Amandine Habrioux, Architetto',
     'meta.contact.desc': 'Contatta Amandine Habrioux, architetto, per i tuoi progetti.',
+'contact.share': 'Condividi il sito',
+    'contact.share.copied': 'Link copiato!',
   },
 };

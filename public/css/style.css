@@ -873,3 +873,21 @@ main { min-height: 100vh; }
     right: 16px;
   }
 }
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  padding: 12px 20px;
+  border: 1px solid var(--color-text);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.share-btn:hover { background: var(--color-text); color: var(--color-bg); }

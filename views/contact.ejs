@@ -40,8 +40,18 @@
         <% if (contact.autre) { %>
           <li><span class="contact-label"><%= t('contact.autre') %></span><span class="contact-value"><%= contact.autre %></span></li>
         <% } %>
-      </ul>
+     </ul>
+
+      <button type="button" id="share-btn" class="share-btn" data-copied-text="<%= t('contact.share.copied') %>">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7" />
+          <polyline points="16 6 12 2 8 6" />
+          <line x1="12" y1="2" x2="12" y2="15" />
+        </svg>
+        <span class="share-label"><%= t('contact.share') %></span>
+      </button>
     </div>
   </main>
+  <script src="/js/share.js"></script>
 </body>
 </html>
