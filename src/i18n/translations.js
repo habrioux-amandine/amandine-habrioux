@@ -31,6 +31,7 @@ module.exports = {
     'meta.contact.desc': 'Contactez Amandine Habrioux, architecte, pour vos projets.',
 'contact.share': 'Partager le site',
     'contact.share.copied': 'Lien copié !',
+'cursor.view': 'Voir le projet',
   },
   en: {
     'site.suffix': 'Architect',
@@ -64,6 +65,7 @@ module.exports = {
     'meta.contact.desc': 'Get in touch with Amandine Habrioux, architect, for your projects.',
 'contact.share': 'Share the site',
     'contact.share.copied': 'Link copied!',
+'cursor.view': 'View project',
   },
   it: {
     'site.suffix': 'Architetto',
@@ -97,5 +99,6 @@ module.exports = {
     'meta.contact.desc': 'Contatta Amandine Habrioux, architetto, per i tuoi progetti.',
 'contact.share': 'Condividi il sito',
     'contact.share.copied': 'Link copiato!',
+'cursor.view': 'Vedi il progetto',
   },
 };
